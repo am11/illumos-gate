@@ -254,8 +254,9 @@ set_priority(idtype_t idtype, id_t id, int policy, int prio,
 	case SCHED_OTHER:
 	{
 		tsparms_t *tsp = (tsparms_t *)pcparmp->pc_clparms;
-		tsp->ts_uprilim = prio;
 		tsp->ts_upri = prio;
+		if (tsp->ts_uprilim < prio)
+			tsp->ts_uprilim = prio;
 		break;
 	}
 	case SCHED_FIFO:
